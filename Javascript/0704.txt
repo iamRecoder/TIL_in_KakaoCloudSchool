@@ -1,0 +1,167 @@
+# 0704
+
+jquery는 비표준. 요즘 걷어내는 추세. 기술 종속적인 부분이 있으며 프레임워크가 아닌 라이브러리이기 때문. 유지보수가 어렵.
+강의진행 방향: ECMAScript ⇒ 리액트 ⇒ 자바 ⇒ 데이터베이스 ⇒ 서블릿 ⇒ 스프링
+언어 자체에 대한 세부적이고 자세한 내용을 다룰 예정.
+
+Q. Javascript ⇒ 알면 좋고 몰라도 크게 상관없는 언어였음. Javascript가 어떻게 지금의 위상을 갖게 되었을까?
+1995년에 만들어짐. netscape 사의 브랜든 아이크가 만들음.
+프로토 타입 기반의 함수형 언어로. (목적: 웹에서 사용 가능한 언어를 만들자) ⇒ Mocha라는 언어 ⇒ Live Script라는 이름으로 발표.  마케팅적인 이유로 Javascript로 이름이 변경됨.
+표준화를 진행하려 하는데 라이센스 때문에 Javascript라는 이름으로 표준화를 할 수가 없었음.
+표준화 진행을 ECMA라고 불리는 비영리 표준 기구에게 부탁함. 표준화된 이름은 ECMAScript.
+Javascript와 ECMAScript는 같아 보이지만 실제로는 다르다. 
+Javascript == ECMAScript   ⇒ False!  
+Javascript는 "스크립트 언어인 ECMAScript +  [ 환경에 따라 다름. client side web API(DOM,BOM,Indexed DB 등등) or host API ]"
+⇒ Javascript는 ECMAScript 와 여러 API들의 집합체.
+그렇지만 업게에서 Javascript와 ECMAScript를 통용해서 사용함.
+현재 가장 최신 배포판은 ECMAScript 2021 ⇒ ES12
+
+Q. 왜 최신판이 아닌 ES6를 많이 언급할까? 
+⇒ ES6에서 새로운 개념들이 많이 등장했음. 대격변. 
+브라우저 밴더들이 각자 자기 마음대로 브라우저를 구현함. 코드가 밴더에 따라 돌아가기도 안돌아가기도 하는 문제가 발생. 모두가 최신 브라우저를 사용하지 않음. 구형 브라우저에서는 가장 최신 배포판이 안돌아감.
+구형 브라우저에서도 원활하게 돌아갈 수 있는 버전이 ES6이다.
+
+인터넷 익스플로어가 세계를 평정하고 있을 때 마이크로소프트에서 JScript라는 것을 만들었음.
+나름대로의 표준아닌 표준을 만들음. (fragmentation, 파편화)
+⇒ 이로인해 Javascript 언어가 명확하지 않고 모호함. 구현의 어려움. 
+⇒ Jquery가 나오면서 구현이 좀 더 쉬워짐. 화면 제어 같은 것들을 쉽게 할 수 있게 됨.
+JQuery를 이용해서 열심히 사용했지만 라이브러리이다 보니, 내가 짠 로직을 남이 수정해야 하다보니 유지 보수의 문제가 발생. 좋지만 단점도 있음.
+⇒ jquery에 비해 자바스크립트의 위상이 떨어지고 있었음. javascript의 위상이 다시 올라가게 된 계가는 HTML5 이다.
+HTML와 CSS의 표준을 관장하는 곳은 W3S이다. 1999년 12월 W3S가 더이상 HTML 버전업을 안하겠다는 발표를 함. HTML 4.01 버전을 마지막으로 더이상의 업데이트는 없다!!
+HTML 언어적 특성 때문에 (1. 정형성이 없다. 문법을 조금 틀려도 에러가 발생하지 않음.  2. 언어 자체에 확장성이 없음. 정해져 있는 태그만 사용하기 때문에 )
+이때 W3S가 선택한 방향은 기존 HTML에 XML(정형성이 있고 User diefined 확장 태그를 만들 수 있으)을 섞어서 새로운 웹 표준을 만들고자 함.
+⇒ 2000년이 되면서 웹 표준이 XHTML으로 바뀜.
+WHATWG라는 working group을 하나 만들어서 xml을 제외하고 html을 독자적으로 발전시킬 연구를 하기 시작함. ⇒ HTML 5 등장. 구글과 애플이 working group에 참여해서 힘을 쏟아줌. HTML5가 웹의 표준이 됨.
+HTML5가 지향하는 것은 브라우저 내에서 동작하는 어플리케이션을 만드는 것. 브라우저만 있으면 모든 프로그램을 다운로드 받아서 돌릴 수 있도록 하자!!
+HTML5 = HTML + CSS3 + Javascript web API(Web storage, Indexed DB, 캔버스 등)
+이렇게 점점 자바스크립트의 위상이 올라감.
+2009년 ES5가 나오고 다시 열심히 표준화가 진행됨!!
+
+Q. Typescript란?
+Typescript는 2012년에 마이크로소프트에서 만들음. 메타 프로그래밍을 할 수 있는 메타 언어이다. (Typescript로 프로그래밍을 한 다음, 트랜스파일(transpile)되면 Javascript 코드가 나옴)
+자바스크립트에서 없는 기능들이 타입스크립트에서 이용 가능. 타입스크립트로 구현하면 자바스크립트에서 똑같은 효과를 낼 수 있음. 내가 원하는 기능을 자바스크립트로 뽑아낼 수 있음.
+Typescript는 클래스 기반의 객체 지향 언어. 
+Typescript는 ECMAScript의 super set. (ECMAScript 문법을 포함하고 있음)
+
+nodejs의 등장으로 Javascript의 위상이 올라감. 
+재정비가 필요하게 됨 ⇒ ES6(ECMA 2015)
+
+웹을 하려면 **패키지 매니저**(package manager: npm, 모듈 간의 dependency를 맞춰줌), **Transpiler**(대표적으로 Typescript), **자동화 도구**(build, test, deploy를 자동화. 대표적으로 gulp), **모듈화**(webpack), **프레임워크**(Angular, React, Vue.js)을 알아두자!
+Javascript를 실행하려면 Javascript Engine이 필요. 
+Javascript Engine은 브라우저 안에 들어가 있음. 각각의 브라우저마다 사용하는 엔진이 다름. 또한 엔진마다 동작 방식이 다름. 따라서 실제 브라우저 내부의 동작은 ES6에 명시된 것과 다를 수 있다.
+Chrome → v8 엔진, Edge → chakra, Safari → Webkit, Firefox → Spider monkey
+Node.js → v8 엔진 사용하여 자바스크립트를 실행함.
+
+
+
+** Javascript **
+
+CPU가 연산을 수행. 연산을 할 때 필요한 데이터는 메모리에서 가져옴. 
+메모리 주소는 16진수로 표현. 메모리 주소를 알아야 데이터를 가져올 수 있음. 
+=> 메모리 주소에 대한 식별자로 "변수" 사용. (메모리에 대한 직접적인 access 불가)
+자바스크립트, 자바, 파이썬 등은 메모리에 대한 직접적인 access를 허용하지 않음. (C는 메모리에 대한 직접적인 접근 가능) 메모리 직접 접근으로 인한 위험성을 방지하기 위함.
+
+* 변수 -> 식별자(identifier)
+식별자는 네이밍 룰을 가짐. (특수 문자 _, $만 가능)
+변수를 선언해서 변수 생성. (메모리 공간을 확보하고 그 메모리 공간과 식별자를 바인딩하는 작업)
+
+* 변수 생성 방법
+1. var 키워드 사용  -> function level scope(유효 범위)를 잡음. 함수를 기준으로 스코프를 잡음.
+2. let 키워드 사용(ES6에서 등장)    -> block level scope를 잡음.
+3. const 키워드 사용(ES6에서 등장)  -> block level scope를 잡음.
+
+변수를 생성하면 undefined 값으로 초기화됨. 
+undefined -> Primitive Value 중 하나. 자바스크립트 엔진에 의해 사용되는 값. 개발자에게 직접 사용 권장되는 값이 아님. 변수를 초기화할 때 사용되는 값.
+변수와 메모리 변수 바인딩한 값이 저장되어야 함. => Execution Context에 저장됨.
+이런 식별자들은 "Execution Context"에 key/value 형태로 저장됨. 
+
+* Variable Hoisting(변수 호이스팅)
+=>  변수를 먼저 사용하고 나중에 변수를 선언할 경우 에러가 안나고 undefined 값으로 초기화된 변수가 사용됨. 
+아래에서 선언한 변수가 위에서 사용됨. 필요에 의해 이렇게 사용할 수도 있음. (이상적으로, 원칙적으로 변수를 먼저 선언하고 사용해야함)
+변수 선언은 runtime이전에 수행됨. 해당 스코프 내에서 선언된 변수는 마치 해당 스코프 내의 최상단에서 선언된 효과를 가짐.
+
+* var keyword 변수 선언 시 주의점
+1. 중복 선언이 가능
+2. var keyword는 함수 레벨의 스코프를 생성
+
+* ES6 -> let과 const
+let은 일반적인 변수를 생성할 때 사용.
+1. 같은 스코프 내에서 중복으로 변수 선언 불가.
+2. 블락 레벨 스코프를 생성.
+3. let, const를 사용하면 호이스팅이 안되는 것처럼 보임! 
+(실제로 호이스팅은 되지만 사용할 수 없다. 왜? let으로 사용하면 선언과 동시에 초기화가 이루어지지 않음. 처음에 해당 변수를 메모리에 저장하지만 undefined 값을 넣지 않으므로 실제로 호이스팅되지만 이를 사용하지 못하고 에러가 발생한다.)
+ex) 에러 발생 예시 => myVar이 마치 해당 블록 내의 최상단에서 선언된 것 같이 호이스팅되지만 let은 undefined 값을 넣지 않기 때문에 초기화되지 않았는데도 myVar이 사용되므로 reference Error가 발생된다.
+    {
+        console.log(myVar);
+        let myVar = 100;
+    }
+4. let 키워드로 변수를 선언하면 변수를 일시적으로 사용할 수 없는 구간(Temporal Dead Zone)이 생길 수 있음.
+
+const는 상수를 생성할 때 사용. (변수에 대한 재할당을 금지)
+
+원시값(Primitive Value)는 immutable 불변. undefined는 원시값이므로 다른 값으로 변할 수 없음.
+그렇다면 값이 할당될 때 어떻게 동작?    =>  메모리의 다른 곳에 값이 할당되고 해당 위치를 변수가 가리킴. 사용되는 reference가 끊긴 메모리 공간은 가비지 컬렉터에 의해 가비지 컬렉션이 발생.
+var, let, const의 차이점을 토대로 어떤 용도로 사용할지 생각하고 변수를 생성해야 함.
+
+* 변수 Naming Rule
+- 특수 문자 안됨(_, $ 제외)
+- 숫자로 시작 안됨
+
+* 변수 Naming Convention
+1. camel case   ex) firstName
+2. snake case   ex) snake_case
+3. pascal case  ex) FirstName
+4. type Hungarian case  ex) strFirstName
+
+=> 자바스크립트는 camel case와 pascal case를 사용.
+
+
+* literal
+literal(리터럴): 특정 값을 표현하기 위해 사람이 이해할 수 있는 약속된 문자,기호들를 이용하는 notation.
+자바스크립트는 문자의 개념이 없음, 문자열 개념만 존재. 
+문자열 리터럴은 '',"" 두가지가 있음. es6에서는 `` 백틱이 등장 
+null => reference가 없다는 의미. null이라는 의미를 표현하는 리터럴. 개발자가 직접 사용하는 값.
+undefined => 변수가 아직 초기화가 되지 않았다는 의미를 표현하는 리터럴. 엔진이 사용하는 값.
+{키:값} => 자바스크립트 객체 리터럴 (JSON, Javascript Object Notation)
+[값1,값2,...] => array literal
+function(){...} => function literal
+
+
+* statement
+statement(문): 프로그램의 최소 실행 단위. 프로그램은 statement의 집합.
+{} => 셀프 클로징 기능을 가지고 있기 때문에 세미콜론을 안찍어도 됨.
+자바스크립트 엔진이 자동으로 세미콜론을 자동으로 찍어줌. (Automatic Semicolon Insertion)
+
+
+* Data Type
+자바스크립트는 총 7개의 타입을 가지고 있음. 1~6번은 primitive type. 7번 object type은 reference type.
+1. number type : 정수, 실수를 구분하지 않음. 내부적으로는 모두 64-bit 실수로 처리. Infinity(양의 무한대), -Infinity(음의 무한대), NaN(Not A Number, 숫자가 아니기 때문에 산술 연산이 불가하다.)
+2. string type : '', "", `` 중에 가장 기본으로 사용하는 마크는 싱글 ''이다. 
+    * ``의 이점: 1. 멀티라인 문자열을 표현할 수 있다.('',""은 이스케이프 문자로 표현해야 함)    2. Expression Interpolation(표현식 삽입)  
+3. boolean type : true,false
+4. undefined type : undefined라는 값 하나밖에 없음.
+5. null type : null 값 하나밖에 없음. 개발자가 어떠한 값도 reference하고 있지 않다듣 것을 명시적으로 알려주는 표현.
+6. symbol type : symbol 값의 가장 큰 특징은 무조건 unique하다. 값이 같을 수 없음. 고유한 값을 만들기 위해 사용함. 눈으로 확인이 안됨(출력을 할 수 없음). Symbol()을 이용해서 만든다. 인자로 디스크립트(설명)을 전달할 수 있으며 디스크립트가 값 생성하는 데 영향을 주지 않는다.(.description 속성을 통해 디스크립트를 꺼내올 수는 있음). 절대 겹치지 말하야 하는 값들을 동적으로 생성하는 경우에 사용하면 좋음.
+                    Symbol.for() : 해당 디스크립터(키)를 이용한 심볼을 찾기 위한 메서드. global Symbol registry(전역 심볼 저장소)라는 곳이 있음. 그 곳에서 해당 인자를 키로 가지고 있는 symbol을 찾음. 만약 해당 값이 없다면 해당 키를 가지고 새로운 키를 만든 후 레지스트리에 등록하고 이를 리턴.
+                    Symbol.keyFor() : 심볼을 이용해 키를 찾기 위한 메서드. 인자로 심볼을 넣고 해당 심볼의 키를 찾아줌.
+7. object type : 내용이 방대하므로 나중에 다시!
+
+
+Q. 변수에도 Data Type이 있나요?
+자바스크립트는 변수에 값이 할당되는 시점에 타입이 결정된다. (Type Inference, 타입 추론) => Dynamic Type Language(동적 타이핑, 타입 추론에 의해 동적으로 타입이 결정된다.)  //c,Java 등의 프로그래밍 언어는 Static Type Language(명시적 언어)
+명시적 언어는 엄격하게 타입이 적용이 되기 때문에 오류가 발생할 확률이 적으므로 신뢰성이 높지만 형변환이 어려워 효율성이 낮다.
+동적 타이핑 언어는 암시적으로 타입 변환이 빈번히 일어나므로 오류가 발생할 확률이 높고 신뢰성이 낮지만 유연한 프로그래밍이 가능하기 때문에 효율성이 뛰어나다.
+
+null => typeof를 사용하면 object로 나옴. 
+== loose equality 
+=== strict equality : type도 일치해야 함.
+
+
+* 형 변환
+1. 형변환(String)
+    1. String 생성자 함수를 new 없이 사용하면 됨. 
+    2. Obkect라는 객체가 가지고 있는 prototoype.toString() 메소드를 호출.
+    3. + 연산자 사용.
+
+
+
