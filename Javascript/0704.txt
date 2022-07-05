@@ -160,7 +160,7 @@ null => typeof를 사용하면 object로 나옴.
 * 형 변환
 1. 형변환(String)
     1. String 생성자 함수를 new 없이 사용하면 됨. 
-    2. Obkect라는 객체가 가지고 있는 prototoype.toString() 메소드를 호출.
+    2. Object라는 객체가 가지고 있는 prototoype.toString() 메소드를 호출.
     3. + 연산자 사용.
 
 
