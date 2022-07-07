@@ -1,0 +1,259 @@
+# 0707
+
+생성자 함수만 가지고 있는 prototype property, 이는 prototype 객체를 가리키고 있다. prototype 객체에는 constructor property가 추가된다. constructor property는 생성자 함수를 가리킨다.
+모든 객체는 내부 슬롯으로 [[Prototype]]을 가지고 있다.
+생성자 함수로 인스턴스를 만들면 인스턴스도 역시 객체이므로 애부 슬롯 [[prototype]]을 기자고 있자. [[prototype]]은 상위 prototype 객체를 가리킨다.
+__proto__ 접근자 property는 상속되었기 때문에 사용 가능!
+__proto__ 접근자 property는 인스턴스가 Object.prototype을 상속받고 있기 때문에 Object에는 Object.porototype.__proto__ 가 있음.
+prototype 객체의 [[[prototype]]은 Object.prototype을 가리키고 있음.
+Object.constructor는 Object 생성자 함수를 가리킨다.
+prototype chain이 인스턴스 기준으로 하나만 생기지 않는다. 2개의 prototype chain이 생긴다.
+
+
+실행 컨텍스트: 사용하는 메모리 공간. 코드에 대한 순차.
+실행 중인 코드가 어디 있느냐에 따라 실행 컨텍스트를 잡음.
+함수 실행 컨텍스트가 별도로 만들어져서 함수에 필요한 것들을 별도로 저장한다.
+
+__proto__ 접근자 property
+Object prototype이 갖고 있는 property
+그러나 __proto__ 표현이 나오는 것을 권장하지 않는다. 왜? 혹시라도 상속을 받지 않는 경우가 있을 수 있기 때문에
+Q. 그럼 이런 경우를 위해 어떻게 하면 좋은가요?
+=> Object가 가지고 있는 메서드를 이용하는 게 좋아요!
+상위 prototype을 access할 때에는 Object.getPrototypeOf(obj)를 사용하는 것이 좋다.
+
+* prototype property는 constructor(함수 선언문, 함수 표현식, class)만 가질 수 있는 property
+
+                        (소유)                   (의미)
+__proto__ property => 모든 객체가 들고 있음.    prototype 객체의 참조
+prototype property => constructor.         prototype 객체의 참조
+
+* 객체 literal로 생성된 Object의 상위 prototype 객체
+literal은 new를 통해 인스턴스가 만들어진 게 아니고 내부적으로 인스턴스와 똑같은 형태의 객체를 만들어낸다.
+따라서, 메카니즘은 다르지만 결론적으로 만들어지는 것은 똑같다.
+ex)
+        //함수 표현식은 함수 리터럴을 이용해서 만드는 것
+        var foo = function(){};
+
+        console.log(foo.__proto__ === Function.prototype)   //true
+        console.log(foo.prototype.__proto__ === Object.prototype)   //true
+
+어떤 리터럴을 사용하는지에 따라 객체의 prototype과 생성자 함수가 달라진다.
+    {} 객체 리터럴 => Object.prototype
+                    Object
+
+    함수 literal => Function.prototype
+                    Function
+
+    [1,2,3] =>  Array.prototype
+    배열 리터럴       Array
+
+생성자 함수와 같이 prototype 객체가 만들어진다.
+
+built in 전역 함수
+- Object
+- Function
+- Array
+- Math
+- JSON
+- Number
+- String
+  ...
+=>  Math와 JSON은 생성자 함수가 아니다. 따라서 built-in 생성자 함수는 위의 목록 중에 Math와 JSON을 제외한 것!
+
+built-in 전역 함수는 자바스크립트 엔진이 기동하면 전역 객체의 property로 생성된다.
+ex)
+    console.log(Object === window.Object)   //true
+    console.log(Object.__proto__)   //상위 객체 출력해보기
+
+overriding에 의해서 숨겨진 prototype 메소드를 property shadowing되었다고 말한다.
+
+* static property / method
+property chain에 속하지 못하기 때문에 instance를 사용하지 못한다. 함수로 직접 접근해서 사용해야 한다.
+
+* 묵시적 전역(Implicit Global)
+ex)
+    function foo(){
+        x = 10;     //implicit global(묵시적 전역)
+    }
+
+    foo();
+    console.log(x); // 10 어떻게 전역에서 사용할 수 있을까? => 이렇게 사용하면 레퍼렌스 에러가 나는 대신 자바스크립트 엔진이 자동적으로 윈도우 전역 객체에 붙여준다.(전역변수화)
+=> 이러한 현상은 코드 신뢰도를 떨어뜨리는 좋지 않은 코드!
+strict mode은 일반적으로 전역에 선언하지 않아서 위의 현상을 방지해준다!
+
+1. strict mode
+strict mode를 사용하려면 스코프의 맨 위에 'use strict'라고 작성해야 한다. 그러나 strict mode를 사용하면 라이브러리 등이 동작하지 않을 위험성이 있다!
+기본적으로 자바스크립트는 non-strict mode
+
+2. 즉시 실행 함수(IIFE)
+함수를 선언과 동시에 실행! strict mode는 즉시 실행 함수(IIFE)를 만들어서 사용하는 것이 일반적이다.
+ex)
+    (function(){
+        //non-strict mode
+        var let = 10;
+
+        //inner function, nested function
+        function foo(){
+            'use strict'
+            let = 20;
+        }
+    }())
+
+* strict mode 사용시 주의점
+  1. Implicit global(묵시적 전역)을 사용할 수 없어요.
+  2. 변수, 함수, 매개변수가 delete로 인해서 삭제가 안된다.(Syntax Error 발생)
+  3. this의 의미가 달라진다. 일반함수에서의 this는 window 객체를 가리키지만 strict mode에서는 this가 undefined를 가리킨다.
+
+
+* Built-in 오브젝트
+  Built-in 함수 function
+  Built-in 전역함수
+
+
+빌트인 함수를 사용하여 wrapper를 만들면 유사배열 객체가 String 타입에 정의되어 있는 prototype 객체의 메소드를 상속받아서 사용 가능!
+wrapper 객체를 생성하여 사용한 다음 소멸됨. 계속하여 객체가 생성되었다가 소멸되므로 좋은 방법이 아니다.
+
+* 전역 객체(사용하는 플랫폼(실행 환경)에 따라 다르다)
+- window
+- global
+=> 이 둘을 합쳐서 globalThis라고 부른다. 하지만 ES11에서 추가되었기 때문에 최신 환경이 아니라면 인식 안된다.
+개발자가 의도적으로 생성할 수 없다.
+브라우저 환경에서는 window.DOM(Document Object Model), window.BOM(Business Object Model), window.XMLHttpRequest, var로 선언된 전역 변수(let,const 전역변수는 붙지 않으며 따로 관리된다), 묵시적 전역변수, NaN, undefined 등이 window 객체에 붙는다.
+계층 구조상 최상의 객체로 사용하는 것이 window 객체이다. (!='스코프 체인이 최상이다', 완전히 다른 표현이다.)
+
+
+
+* 클로저(Closure)
+클로저는 함수형 언어들이 가지는 특징(클로저는 자바스크립트 고유의 개념이 아니다.)
+First class citizen/object(일급 객체)에 대한 이해가 선행이되어야 한다.
+  1. 객체가 익명으로 생성이 가능. (runtime에 생성이 가능)
+  2. 객체는 값으로 자료구조에 저장이 가능하다.
+  3. 함수의 매개변수로 전달이 가능하다.
+  4. 함수의 리턴값으로 사용이 가능하다.
+자바스크립트에서는 함수가 객체로 취급되고 일급 객체의 특징을 모두 가지므로 함수가 일급객체로 동작한다.(일급 함수, First Class Function)
+
+클로저를 간단하게 정의하자면, MSN에서 클로저는 '함수와 그 함수가 선언된 lexical environment의 조합'
+lexical environment란 무엇인가?
+    execution context(실행 컨텍스트) 개념과 연결된다.
+
+ECMAScript 명세에 따르면
+=> 4가지 종류의 서로 다른 코드로 분류한다.
+    1. 전역 코드(전역에 존재하는 코드. 전역 함수의 내부코드는 포함되지 않는다)
+    2. 함수 코드(함수 내부에 있는 코드, 함수 선언하는 코드는 전역 코드이다. A함수 내부에 B함수 선언하는 코드가 있을 경우, B함수 선언하는 코드까지만 함수 코드이고 B함수 내부의 코드는 B함수의 함수 내부 코드이다. 스코프가 다르다.)
+    3. eval 코드(빌트인 함수, 식을 수행해준다. 그러나 퍼포먼스가 느리고 보안상의 이유로 통상적으로 사용하지 않음)
+    4. 모듈 코드(모듈로 코드를 별도로 빼서 사용)
+
+=> 각각의 코드가 실행될때마다 실행 컨텍스트가 달라진다! 전역 실행 컨텍스트는 오직 하나뿐! 함수 코드 등은 새로운 함수가 생성될때마다 실행 컨텍스트가 별도로 생성되고 실행됨.
+
+* 전역 코드
+전역 코드가 실행되면 전역 변수를 관리하기 위한 전역 스코프(메모리 공간)부터 생성.
+var keyword로 전역에 선언된 식별자를 찾고 window 객체를 만들고 그 식별자를 window 객체에 바인딩한다.
+이런 작업을 하기 위해 전역 실행 컨텍스트를 생성!
+
+* 함수 코드
+함수 내부에 있는 코드를 실행하면 함수 내부에서 사용하는 지역변수, 매개변수, arguments를 관리하기 위해서 지역 스코프(메모리 공간)를 생성한다.
+그리고 지역 스코프를 전역 스코프와 체인을 연결하여 스코프 체인을 생성해야 한다.
+이런 작업을 하기 위해 함수 실행 컨텍스트를 생성!
+
+=> 실행 컨텍스트를 정보를 저장하기 위한 메모리 공간(lexical environment) + 코드 실행 순서 관리를 위한 정보로 인식하면 된다!
+lexical environment의 레코드로 정보들(참조 정보, 체인 정보 등등)이 저장된다.
+코드 실행 순서는 스택으로 관리된다. 이를 execution context stack이라고 부른다.
+
+<코드에 따라 stack이 변하는 과정> => 0707.md의 사진 참조하기!
+
+가비지 콜렉터가 청소하는 조건은 어느 누구도 그 메모리를 레퍼런스하고 있지 않아야 한다. 그러나 자바스크립트는 lexical scope이기 때문에 execution context에선 날아가지만 참조가 살아있기 때문에 lexical scope에서는 살아 있다.
+
+* 클로저
+1. closure는 중첩 함수.
+2. 이 중첩함수가 중첩함수를 감싸고 있는 외부 함수의 결과값으로 리턴된다.
+3. 리턴되는 중첩 함수가 외부 함수의 식별자를 참조하고 있어야 한다.
+4. 리턴되는 중첩 함수의 생명주기가 외부 함수의 생명주기보다 길어야 한다.
+5. 이때 중첩 함수에서 외부 함수에 대한 참조가 남아있기 때문에 외부 함수의 실행은 execution context stack에서 제거되지만 lexical 환경은 남아 있다.
+  외부함수의 lexical 환경은 메모리에 남아 있어서 중첩함수에 의해 사용될 수 있는 현상!
+=> 따라서 클로저를 '함수와 그 함수가 선언된 lexical environment의 조합'이라고 표현한다. 위의 1~3 조건을 만족해야 클로저이다.
+ex) 클로저 함수 예시
+    const x = 1;
+
+    function outer(){
+        const x = 10;
+
+        const inner = function(){
+            console.log(x);
+        }
+        return inner;
+    }
+
+    const innerFunc = outer();
+    innerFunc();    //1이 아닌 10이 출력됨.
+=> lexical environment이기 때문에 outer() 함수 호출이 종료된 시점에서도 10이 출력된다.
+
+ex) 클로저 함수가 아닌 경우
+    function foo(){
+        const x = 1;
+        const y = 2;
+
+        function bar(){
+            const z = 3;
+            console.log(z);
+        }
+        return bar;
+    }
+=> 클로저가 아니다! 3번 조건'리턴되는 중첩 함수가 외부 함수의 식별자를 참조하고 있어야 한다.'을 만족하지 않기 때문에!
+
+
+
+(복습)
+lexical 환경은 lexical scope 변수 등을 저장하는 메모리 공간.
+힘수가 실행될 때 메모리에 스택처럼 차곡차곡 쌓이고 함수 호출이 종료되면 pop된다.
+lexical 환경은 함수가 pop되더라도 함수의 변수 등의 데이터를 계속해서 저장하고 있는다.
+그렇기 때문에 클로저 현상이 발생하는 것이다.
+
+
+* 클로저를 어디에 쓰나요?
+    let num = 0;    //let으로 선언하면 window property로 붙지 않는다.
+
+    const increase = function(){
+        return ++num;
+    }
+
+    console.log(increase());        //1이 출력된다.
+    console.log(increase());        //2가 출력된다.
+    console.log(increase());        //3이 출력된다.
+=> 객체지향 관점에서 메서드보다 데이터를 잘 관리해야한다.
+그렇기 때문에 아무데에서나 데이터를 함부로 변경할 수 있도록 하면 안된다.
+데이터는 객체 내부로 숨겨야 한다.
+
+이 코드의 문제점: 데이터를 보호할 수 없다.
+전역 변수를 지역변수로 바꾸면 외부에서 함부로 데이터를 접근할 수 없으므로 데이터가 보호된다.
+let num = 0;을 increase 함수 내부로 옮기면 함수를 호출할 때마다 num이 초기화된다.
+그렇다면 함수 본연의 기능을 해치지 않으면서 데이터를 보호하려면 어떻게 해야할까?  => 클로저를 사용하면 된다!!!
+
+ex) 클로저 함수 사용 예시
+    const increase = (function(){
+        let num = 0;
+        return function(){  //외부 함수의 지역 변수를 참조하고 있으면서 내부 함수를 리턴하고 있으므로 클로저이다.
+            return ++num;
+        }
+    }());
+
+    console.log(increase());
+    console.log(increase());
+=> hiding하고 싶은 num 변수를 보호하면서 사용 가능하다!
+
+ex) 여러개의 클로저 함수 사용 예시(함수 여러개를 객체로 묶어서 반환 가능!)
+    const counter = (function(){
+        let num = 0;
+        return {    //두 개의 메서드를 객체로 묶어서 리턴한다. 함수를 하나만 리턴하지 않아도 된다! 함수를 포함해서 리턴하기만 하면 된다!!
+            increase(){
+                return ++num;
+            },
+            decrease(){
+                return --num;
+            }
+        }
+    }());
+
+    console.log(counter.increase());
+    console.log(counter.decrease());
+=> 굳이 하나의 함수를 리턴하지 않아도 된다! 함수를 포함해서 리턴하기만 하면 된다!
+
