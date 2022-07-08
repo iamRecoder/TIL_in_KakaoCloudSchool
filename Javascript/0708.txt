@@ -123,3 +123,95 @@ Javascript는 프로토타입 기반의 객체 지향 언어, 객체 기반 언�
 
 * 상속에 따른 class에 따른 확장은 prototype 기반의 상속과는 다르다.
 체인 자체가 다르게 만들어진다.
+하위 클래스에 [[prototype]]으로 접근. __proto__를 이용한다.
+ex) 상속 예시
+   // super class
+   class Animal{
+       constructor(age, weight){
+           this.age = age;
+           this.weight = weight;
+       }
+
+       eat(){
+           return '밥을 먹어요!';
+       }
+
+       move(){
+           return '움직여요!'
+       }
+   }
+
+   class Bird extends Animal{
+       // 상위 클래스의 constructor를 호출
+       constructor(age,weight,kk){
+           super(age,weight)
+           this.kk = kk;
+       }
+
+   }
+   const bird = new Bird(12,30,100);
+   console.log(bird);
+   console.log(bird instanceof Bird);       //인스턴스가 클래스의 인스턴스가 맞는지 확인. true
+   console.log(bird instanceof Animal);    //true
+   console.log(bird instanceof Object);    //true
+
+* 클래스 간의 상속은 가능! 생성자 함수간의 상속은 안된다!
+class와 생성자 함수 간에는 상속 관계를 가질 수 있어요!
+=> class는 생성자 함수로부터 상속을 받을 수 있어요!
+
+자바스크립트는 동적 상속을 제공한다. extends라는 키워드 뒤에 값으로 평가될 수 있는 식이 올 수 있어요! ex) 삼항 연산자
+ex) 동적 상속 예시
+    function Base1(name){
+        this.name = name;
+    }
+    class Base2{
+
+    }
+
+    let tmp = true;
+    //상속받을 때 3항 연산자 사용 가능
+    class Derived extends (tmp ? Base1 : Base2) {
+
+    }
+
+    const p = new Derived();
+    console.log(p)
+
+
+ex) 상속 예시
+    class Base{
+        constructor(name){
+            this.name = name;
+        }
+        sayHello(){
+            return '안녕하세요';
+        }
+    }
+
+    class Derived extends Base{
+        sayHello(){
+            return super.sayHello() + this.name;
+        }
+
+    }
+
+    const derived = new Derived('홍길동');
+    console.log(derived.sayHello());
+=> 출력 결과: 안녕하세요홍길동
+
+* Array
+가장 대표적으로 많이 사용하는 자료구조. -> 자바스크립트에서는 활용도가 아주 높다!'
+배열 생성하기
+    const arr = [1,2,3] //array literal
+    const arr = new Array();
+배열의 각각의 요소는 element(요소). 숫자 index로 배열 참조.
+배열은 자바스크립트 객체(object)
+객체는 property key와 property value로 구성되어 있다. 순서가 없다. length라는 property가 어떤 객체에는 있고 어떤 객체에는 없다.
+반면에 배열 객체는 index와 요소로 구성되어 있다. 순서가 있다. 배열은 항상 length property가 default로 존재.(유사 배열 객체도 length property를 가진다.)
+
+* data structure 관점에서 array(배열) -> 1. 연속적인 저장 공간을 가진다. 2. 각 배열의 크기가 같다(연속적인 저장 공간을 갖기 때문에)
+=> 이러한 배열의 특징 때문에 배열은 인덱스를 이용해서 아주 빠른 시간에 원하는 것에 접근할 수 있다는 장점이 있다. (이를 dense array라고 한다.)
+삽입과 삭제에 취약하다.(삽입, 삭제할 경우, 그에 맞게 데이터를 다시 정렬해 줘야 하기 때문에)
+** 그런데, 자바스크립트 배열은 sparse array(희소 배열)이다.
+공간의 크기가 똑같지 않으며 공간 곳곳이 비어져 있다. 삽입과 삭제하는 데 훨씬 효율적이지만 찾기에는 취약하다.
+
