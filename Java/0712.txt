@@ -1,0 +1,254 @@
+# 0712
+
+JVM이 우리 프로그램을 실행시킨다.
+JVM + coreAPI = JRE
+JRE + Utility = JDK
+현재 자바 버전은 18버전, 일반적으로 사용되는 버전은 JAVA 8 또는 11 버전
+네트워크, 분산 처리에 강세를 보이는 언어이다.
+클래스의 집합이 모여서 하나의 자바 프로그램이 된다.
+
+* 인스턴스 테스트
+- InstanceTest class
+package java_practice0712;
+
+public class InstanceTest {
+
+	// field
+	int a = myCall("1번 출력 ");
+	static int b = myCall("2번 출력 ");
+
+	// constructor
+	public InstanceTest() {
+		System.out.println("생성자 생성");
+
+	}
+
+	// method
+	public static int myCall(String msg) {
+		System.out.println(msg);
+		return 100;
+	}
+
+	public void printMsg(String msg) {
+		int a = 100;
+		System.out.println(msg);
+	}
+}
+
+- Main class
+package java_practice0712;
+
+public class Main {
+
+	public static void main(String[] args) {
+		InstanceTest test;
+		System.out.println("3번 ");
+		int k = InstanceTest.myCall("4번 ");
+		test = new InstanceTest();
+		test.printMsg("5번 ");
+	}
+
+}
+=> 출력 결과:
+3번
+2번 출력
+4번
+1번 출력
+생성자 생성
+5번
+
+* static block: main()을 사용하기 직전에 특수한 처리를 하기 위해서 (일반적으로 Library loading을 위해 사용된다.)
+package java_practice0712;
+
+public class MyClass {
+	int aaa;
+	static int bbb = staticCall();
+
+	// static block
+	static {
+		// main이 실행되기 직전에 프로그램에 필요한 다른 라이브러리 같은 것들을 로딩할 때 사
+		System.out.println("static block 호출 ");
+	}
+
+	static int staticCall() {
+		System.out.println("staticCall이 호출되었습니다. ");
+		return 100;
+	}
+	public static void main(String args[]) {
+		System.out.println("main 호출 ");
+	}
+
+}
+=> 출력 결과:
+staticCall이 호출되었습니다.
+static block 호출
+main 호출
+
+
+
+** inheritance(상속)
+부모 class가 가지는 내용을 확장해서 지속 class를 만드는 방식
+1. extends 키워드로 상속 구현
+2. Java는 단순 상속만 지원 (다중 상속은 지원하지 않는다.)
+3. 상속은 항상 좋을까? 좋다! 그러나 클래스가 tightly coupled되어 재사용에 문제가 발생할 여지가 있다. => 나중에 어떻게 해결하는지 알아보아요.
+
+* 클래스의 모든 것을 상속할 수 있을까?
+- Constructor는 해당 클래스만을 위해서 동작하는 것이지 상속되지 않는다.
+- private field,method는 해당 클래스에서만 사용할 수 있기 때문에 상속되지 않는다.
+
+* 상속 관계인 클래스의 인스턴스 만들기
+자바의 모든 클래스는 object 클래스(최상위 클래스)를 무조건 상속하고 있다. 상속하는 코드를 생략하더라도 Javac 컴파일러가 자동으로 extends Object 코드를 넣어준다.
+자바의 모든 클래스는 특정 패키지 안에 포함되어 있다. 즉, Object 클래스도 논리적인 단위인 패키지로 묶여서 제공이된다. Object classs는 Java.lang 패키지 안에서 우리에게 제공된다.
+그런데 왜 extends Java.lang.Object가 아닌 extends Object일까?
+=> Javac 컴파일러에 의해 자동으로 import java.lang.* 되었다.
+
+상속 관계인 클래스의 인스턴스를 만들면 최상위 constructor를 호출해서 상위 클래스의 인스턴스부터 차례로 만든다. 자식 클래스의 생성자에 부모 클래스의 생성자를 호출하는 super()이 명시되지 않았다면 자동으로 삽입된다. super()를 명시할 경우, 생성자의 첫째줄에 명시해야 한다. 이때, 상위 클래스의 생성자 인자에 맞춰서 인자가 맞는 super()를 호출해야 한다. 인자 개수가 맞지 않으면 에러가 발생한다. ex) super(name,age);
+만들어진 객체는 하나이지만 타입을 어떻게 잡느냐에 따라 여러 type으로 사용 가능. 상위 클래스 타입으로 캐스팅하여 사용할 수 있음(polymorphism 다형성)
+
+* method Overriding(메서드 재정의)
+상위 클래스의 메서드와 완전히 동일한 메서드가 하위 클래스의 메서드로 재정의된다.
+이 경우, 상위 클래스와 하위 클래스 영역이 분리되어 두 개의 메서드가 공존하게 된다.
+오버라이딩이라는 표현은 메서드 재정의에 대해서만 사용하는 표현. 메서드 재정의 와는 달리 필드 재정의는 권장되지 않는다.
+
+* this, super, super()의 차이
+- this
+현재 사용하는 객체에 대한 레퍼런스
+- super
+현재 사용하는 객체의 reference. Type이 상위 Type
+- super()
+상위 클래스의 생성자를 호출
+- this()
+자신의 class가 가지는 다른 생성자 호출
+
+
+
+* 호출 순서 TEST
+package java_practice0712;
+
+class Superclass{
+	// static method
+	static int staticCall(String msg) {
+		System.out.println(msg);
+		return 100;
+	}
+
+	// field
+	int a = staticCall("1번 ");
+	static int b = staticCall("2번 ");
+
+	// constructor
+	public Superclass() {
+		staticCall("3번 ");
+	}
+	public Superclass(int i) {
+		this();
+		staticCall("4번 ");
+		System.out.println("superclass 생성자 호출 완료 ");
+	}
+
+	// method
+	public void myFunc() {
+		System.out.println("5번 ");
+	}
+
+}
+public class InheritanceTest extends Superclass {
+
+	// fields
+	int c = staticCall("6번 ");
+	static int d = staticCall("7번 ");
+
+	// constructor
+	public InheritanceTest() {
+		super(100);
+		staticCall("8번 ");
+		super.myFunc();
+		System.out.println("Inheritanceclass 생성자 호출 완료 ");
+	}
+
+	@Override
+	public void myFunc() {
+		System.out.println("9번 ");
+	}
+
+	public static void main(String[] args) {
+		System.out.println("main method 시작 ");
+		System.out.println("10번 ");
+		System.out.println("instance 생성 시작 ");
+		Superclass obj = new InheritanceTest();
+		System.out.println("instance 생성 완료 ");
+		obj.myFunc();   //객체에 대한 타입이 상위 타입일지라도 만약 오버라이딩된 메서드가 하위에 존재한다면 무조건 오버라이딩된 메서드를 사용한다. (동적 바인딩, dynamic binding)
+	}
+
+}
+=> 출력 결과:
+2번
+7번
+main method 시작
+10번
+instance 생성 시작
+1번
+3번
+4번
+superclass 생성자 호출 완료
+6번
+8번
+5번
+Inheritanceclass 생성자 호출 완료
+instance 생성 완료
+9번
+
+
+
+* final
+- 변수 앞에 붙으면 상수 처리
+- class 앞에 붙으면 이 클래스로부터 더이상 상속 금지
+- 메서드 앞에 붙으면 오버라이딩(재정의) 금지
+
+* 추상 클래스(abstract class)
+클래스 내부에 추상 메서드(abstract method)가 단 한 개라도 존재하면 해당 클래스는 추상 클래스가 된다.
+추상 메서드는 메서드의 선언만 있고 정의({})가 없다. (메서드가 하는 일이 정해지지 않았다.)
+추상 클래스로부터 인스턴스를 생성할 수 없다. 추상 클래스는 상속하고 오버라이딩해서 사용한다. 메서드 이름을 통일하기 위해 사용.(메서드 이름은 같지만 각 클래스별로 메서드의 세부적인 행위가 다른 경우)
+ex) public abstract class UpperClass {
+
+    	// field
+    	String name;
+    	int age;
+
+    	// method
+    	public abstract void printAll();		//abstract method
+    }
+
+* 인터페이스(interface)
+추상 클래스의 아주 특별한 형태
+1. 클래스처럼 생겼지만 내부의 모든 메서드가 추상 메서드이다.
+2. 클래스처럼 생겼지만 필드는 모두 public static final로 구성되어 있다. (어디에서나 접근할 수 있는 상수! 추상클래스는 인스턴스를 만들 수 없기 때문에 static이여야 한다) 알아서 자동적으로 붙여주므로 접근 제어자를 생략해도 된다.
+3. extends 대신 implements 키워드로 인터페이스를 사용. 인터페이스의 모든 메서드들을 모두 오버라이딩해서 사용한다. 'is-A' 관계가 성립한다.
+ex) interface myInterface{
+
+    	// fields
+    	// public static final, 이를 자동으로 붙여준다.
+    	public static final int kk = 0;
+    	String aa = "Hello";
+
+    	// methods
+    	public abstract void printAll();
+    	public abstract void myPrint();
+    }
+
+    public class MyClass implements myInterface{
+
+    	@Override
+    	public void printAll() {
+    		// TODO Auto-generated method stub
+
+    	}
+
+    	@Override
+    	public void myPrint() {
+    		// TODO Auto-generated method stub
+
+    	}
+
+
+    }
