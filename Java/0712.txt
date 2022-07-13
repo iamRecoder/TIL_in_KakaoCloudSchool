@@ -66,7 +66,7 @@ public class MyClass {
 
 	// static block
 	static {
-		// main이 실행되기 직전에 프로그램에 필요한 다른 라이브러리 같은 것들을 로딩할 때 사
+		// main이 실행되기 직전에 프로그램에 필요한 다른 라이브러리 같은 것들을 로딩할 때 사용
 		System.out.println("static block 호출 ");
 	}
 

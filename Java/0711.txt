@@ -100,9 +100,9 @@ field들의 집합, constructor들의 집합, 메소드들의 집합
 * JVM이 관리하는 메모리 구조
 1. Register: 프로그램의 실행 포인터를 관리하는 영역(JVM에 의해서만 관리)
 2. Runtime constant pool: 정해져 있는 혹은 만들어지는 상수값들이 여기서 관리됨. (상수값 사용)
-3. Method Area: 클래스 자체에 대한 정보(필드에 대한 정보, 메소드에 대한 정보)가 들어간다. 클래스를 처음 사용하는 시점에 메모리에 올라간다.
-4. Heap: 클래스로부터 나온 인스턴스들이 저장된다. new 키워드로 만들어진 인스턴스들이 저장된다.
-5. call Stack: 메서드가 호출되면 스택 구조로 아래서부터 일정량의 공간이 잡힌다. (지역 변수 등 메서드가 사용할 공간을 할당하기 위해)
+3. Method Area: 클래스 자체에 대한 정보(필드에 대한 정보, 메소드에 대한 정보)가 들어간다. 클래스를 처음 사용하는 시점에 메모리에 올라간다. 또한 class variable(static variable)에 대한 공간이 잡힌다.
+4. Heap: 클래스로부터 나온 인스턴스들이 저장된다. new 키워드로 만들어진 인스턴스들이 저장된다. String pool을 Heap안에 가지고 있고 여기서 문자열(String Instance)을 관리
+5. call Stack: 메서드가 호출되면 스택 구조로 아래서부터 일정량의 공간이 잡힌다. (지역 변수 등 메서드가 사용할 공간을 할당하기 위해) static 여부와 상관없이 모든 메서드들은 호출되면 메서드를 위한 공간이 call stack에 쌓인다.
 
 instance variable, instance method => 인스턴스가 생성될 때 공간이 생성됨. 인스턴스가 생성되어야 사용 가능.
 class variable, class method => memory area 안에 class 정보 안에 공간이 생성. class에 대한 정보가 method area에 올라갈 때 생성됨. 모든 인스턴스에 의해 공유됨. Heap의 인스턴스 데이터 중 static variable/method는 method area의 해당 variable/method를 가리킨다.
@@ -160,7 +160,7 @@ public class Student {
 
 * Acess Modifier: 접근 제어자
 1. public: 제약없이 사용 가능.(package에 상관없이) class가 public이라고 class 내의 모든 것들을 가져다 막 사용할 수 있는 거는 아니다. class 안에 있는 것들은 개별적으로 접근 제어자를 가진다.
-2. protected: 상속 배운 다음에 배울 예정.
+2. protected: 같은 패키지의 경우 사용 가능. 다른 패키지의 겨우 상속 관계에 있으면 사용 가능.
 3. package(default): 키워드를 안쓰는 경우. 같은 패키지 내에서만 사용 가능.
 4. private: 같은 class 안에서만 사용 가능. 같은 클래스 외부에서는 직접적인 access가 불가하기 때문에 데이터를 보호할 수 있다. (정보 은닉, information hiding)
 => 결론적으로 클래스 안의 field는 특별한 이유가 없는 한 데이터 보호를 위해해기본으로 private으로 설정한다. 메서드는 기능을 하기 때문에 외부에서 사용할 수 있도록 기본으로 public으로 설정한다.

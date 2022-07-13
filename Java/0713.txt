@@ -1,0 +1,96 @@
+# 0713
+
+* Inheritance
+기존 class를 확장해서 새로운 클래스를 정의하는 방법
+- constructor는 상속이 안된다.
+- private는 상속으로 사용할 수 없다.
+- Java는 단일 상속만 지원한다.
+- IS-A relationship (클래스로부터 파생된 인스턴스의 데이터 타입을 상위 타입으로 타입 형변환이 가능하다)
+- 다형성, Dynamic Binding
+
+* 자바가 제공하는 API (class library)
+상당히 많은 클래스가 관련있는 클래스들끼리 패키지로 묶여서 제공된다. java.lang 패키지로 묶여서 제공되며 import 없이 사용 가능.
+대표적으로 java.lang.* , java.net.* , java.awt.* 등이 있다.
+API에 대한 상세한 내용은 API Reference에서 확인 가능.
+
+* Object
+자바의 최상위 클래스.
+
+Object의 메소드:
+목적에 맞게 오버라이딩하여 사용 가능.
+
+1. equals()
+객체의 내용을 비교한다.
+
+2. toString()
+
+
+3.
+
+
+* 지료구조
+배열은 size가 고정이다.
+통일된 하나의 데이터 타입을 사용해야 한다.(고정 데이터 타입)
+자바는 배열보다는 collection(자료구조의 집합)을 많이 사용.
+
+* collection : 무조건 객체 형태로만 저장이 가능하다. primitive type 사용 불가
+- List 계열
+    - ArrayList class : 배열과 유사하지만 사이즈가 동적으로 변할 수 있고 각각의 요소들의 데이터 타입이 서로 달라도 된다.
+                        무조건 객체 형태로만 저장된다. 그래도 보통 제네릭을 명시하여 같은 데이터 타입을 사용하는 경우가 대부분이다.
+                        ex) List<String> list = new ArrayList<String>();
+                            list.add("Hello");
+    - LinkedList class
+- Map 계열 : JSON과 같이 Key/Value의 쌍으로 이루어졌다.
+    - HashMap class
+        ex) Map<String,String> map = new HashMap<String,String>();
+            map.put("1", "홍길동 ");
+- Set 계열
+    - HashSet class
+
+* String
+- " "을 통해 문자열을 생성하는 방법 -> String pool에 생성된다.
+    ex) String a = "Hello"
+- new String을 통해 문자열을 생성하는 방법 -> Heap에 생성된다.
+    ex) String b = new String("Hello")
+
+String pool에서 메모리 낭비를 줄이기 위해 같이 쓸 수 있는 것은 최대한 같이 쓰고 새로 만들어야 하는 것만 만든다.(즉, 같은 내용의 문자열일 경우 메모리 주소값이 같다.)
+String의 equals() 메서드는 이미 오버라이딩이 되어 있다. 따라서, 문자열 내용이 같으면 true를 리턴한다.
+문자열 내용을 비교할 때는 equals()를 사용해야 한다. ==은 메모리 주소값을 비교하는 것이므로 주의해야 한다.
+ex) String Test
+    package java_practice0713;
+
+    public class Test {
+
+        public static void main(String[] args) {
+            String str1 = "Hello";
+            String str2 = "Hello";
+            String str3 = new String("Hello");
+            String str4 = new String("Hello");
+
+            System.out.println(str1 == str2);	 	//true
+            System.out.println(str1.equals(str2));	//true
+
+            System.out.println(str1 == str3);		//false
+            System.out.println(str1.equals(str3));	//true
+
+            System.out.println(str3 == str4);		//false
+            System.out.println(str1.equals(str3));	//true
+        }
+    }
+
+* Wrapper class
+자바는 각각의 Primitive class에 매핑되는 Wrapper class를 제공한다. Wrapper class를 통해 원시값을 객체화시킬 수 있다.
+byte    -> Byte class
+short   -> Short class
+int     -> Integer class
+long    -> Long class
+float   -> Float class
+double  -> Double class
+char    -> Charater class
+boolean -> Boolean class
+
+
+
+
+
+
