@@ -8,10 +8,12 @@
 - IS-A relationship (클래스로부터 파생된 인스턴스의 데이터 타입을 상위 타입으로 타입 형변환이 가능하다)
 - 다형성, Dynamic Binding
 
+
 * 자바가 제공하는 API (class library)
 상당히 많은 클래스가 관련있는 클래스들끼리 패키지로 묶여서 제공된다. java.lang 패키지로 묶여서 제공되며 import 없이 사용 가능.
 대표적으로 java.lang.* , java.net.* , java.awt.* 등이 있다.
 API에 대한 상세한 내용은 API Reference에서 확인 가능.
+
 
 * Object
 자바의 최상위 클래스.
@@ -24,8 +26,6 @@ Object의 메소드:
 
 2. toString()
 
-
-3.
 
 
 * 지료구조
@@ -46,6 +46,7 @@ Object의 메소드:
             map.put("1", "홍길동 ");
 - Set 계열
     - HashSet class
+
 
 * String
 - " "을 통해 문자열을 생성하는 방법 -> String pool에 생성된다.
@@ -78,6 +79,8 @@ ex) String Test
         }
     }
 
+
+
 * Wrapper class
 자바는 각각의 Primitive class에 매핑되는 Wrapper class를 제공한다. Wrapper class를 통해 원시값을 객체화시킬 수 있다.
 byte    -> Byte class
@@ -88,9 +91,4 @@ float   -> Float class
 double  -> Double class
 char    -> Charater class
 boolean -> Boolean class
-
-
-
-
-
 
