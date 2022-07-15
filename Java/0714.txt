@@ -54,7 +54,7 @@ Q. 자바에서 스레드를 만들어 사용하려면 어떻게 해야 할까�
         => 두 방법 모두 Thread class를 이용한다. 방법2가 좀 더 선호된다. 상속관계가 없기 때문에 상속관계로부터 파생되는 문제들로부터 좀 더 자유롭기 때문이다.
 
 main thread stack
-start() -> thread 생성 -> stack 할당 -> run() 호출    // 이때 run() 호출이 먼저 될지, start() 이후의 코드가 먼저 실행될지 모른다. 순서가 보장되지 않는다.
+start() -> thread 생성 -> stack 할당 -> run() 호출    // 이때 run() 호출이 먼저 될지, start() 이후의 코드가 먼저 실행될지 모른다. 순서가 보장되지 않는다. 왜? start()되면 스레드는 runnable 상태가 되고 스케쥴러에 의해 특정 시점에 실행되게 된다.
 ex)
     package java_practice0714;
 

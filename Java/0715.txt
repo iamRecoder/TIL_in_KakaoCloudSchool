@@ -1,0 +1,94 @@
+# 0715
+
+** Thread
+Thread class
+    1. 상속
+    2. Runnable Interface를 구현
+       -> Interface를 생성해서 Thread 객체 생성
+
+
+* Join()
+특정 스레드를 지정해서 나를 잠깐 block 시키고 해당 스레드를 참여시킨다. join은 static 메서드가 아니기 때문에(instance method이므로) 특정 스레드를 지정해서 사용 가능하다.
+    - join() : 시간이 정해지지 않았으므로 내가 끝날 때까지 스레드를 참여 시킨다.
+    - join(milliseconds) : 정해진 초만큼 스레드를 참여 시킨다.
+=> 내가 원하는 순서대로 실행시키기 위해서 join()을 사용한다.
+
+* 대기 상태 3개 (sleep에 의해 block, join에 의해 block, lock에 의해 block)
+
+* Thread의 동기화(Synchronization)
+하나의 객체를 여러개의 스레드가 공통을 사용하는 경우, 어떻게 처리해야 하는가.
+
+critical section(임계 영역): 여러개의 스레드가 동시에 접근하면 안되는 영역.
+=> Lock or Monitor를 이용해 ciritical section을 설정할 수 있다.
+    "synchronized" 키워드 하나로 임계영역을 설정하고 lock을 제어하여 공유 데이터를 보호할 수 있다.
+        방법 1. synchronized 키워드를 이용해서 메서드를 동기화
+                ex)
+                        public synchronized void withdraw(int money) {
+                            if (balance >= money) {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (Exception e) {
+
+                                }
+                                balance -= money;
+                            }
+                        }
+        방법 2. synchronized 키워드를 이용해서 동기화 블록을 생성. 1번보다 좀 더 효율적.(메소드의 경우, 메소드 내에 불필요한 코드까지 함께 동기화되기 때문에)
+                ex)
+                        synchronized (this) {
+                			if (balance >= money) {
+                				try {
+                					Thread.sleep(1000);
+                				} catch (Exception e) {
+
+                				}
+                				balance -= money;
+                			}
+                		}
+
+
+
+
+만약 Thread가 공유 자원에 대한 LOCK을 획득한 후 오랜 시간을 보내면 다른 스레드가 starvation되기 때문에 lock을 해제하고 물러나야 한다.
+=> 이를 해결하기 위한 wait()과 notify()! 각각의 공용 객체에 대한 wait()과 notify(). 여러 개의 공용 객체들이 존재할 수 있다.
+    - wait() : lock을 해제하고 대기 상태가 된다.
+    - notify() : wait()에서 대기하는 스레드를 깨워준다. 대기 상태에 있는 thread가 실행될 수 있도록 block을 해제.
+
+
+
+** Java 입출력
+IO(Input/Output)    => 좀 더 쉽다.
+NIO(New Input/Output) Java4에서 등장해서 Java7에서 완전히 정립됨. => channel을 사용하기 때문에 좀 더 어렵다.
+
+* Java I/O
+Stream 객체를 이용하여 입출력 처리를 한다. java.io.package로 제공된다.
+Stream 인스턴스 => 자바에서 특정 장치에서 데이터를 읽거나 특정 장치로 데이터를 보낼 때 사용하는 매개 객체.
+
+- 표준 입력: 키보드 System.in
+- 표준 출력: 모니터 System.out
+
+* Stream 객체의 특징
+1. 단방향. 하나의 단방향으로만 데이터를 보낸다. 스트림 생성 시 stream의 종류가 결정되고 그 방향이 결정된다.
+    따라서, 데이터를 주고 받으려면 주는 방향, 받는 방향으로 두 개가 필요.
+2. FIFO 구조이다. 따라서, 데이터를 순서대로 주고 받는다. 무작위 접근이 불가.
+3. 결합해서 사용할 수 있다. 하나의 Stream 객체를 가지고 다른 Stream 객체에 결합해서 사용 가능. 이렇게 결합하면 사용하기 쉬운 스트림 형태가 된다.
+4. Stream을 구분할 때 Input/Output, Bytes/문자 Stream 으로 구분된다.
+
+ex) Stream 예시
+        // 키보드를 통해 데이터를 한 줄 입력받을 거예요
+		// System.in이라는 제공된 stream은 사용하기 너무 힘들다.
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader bfr = new BufferedReader(isr);	//문자열 기반으로 읽어들일 때 편리하게 사용 가능
+
+		try {
+			String input = bfr.readLine();
+			System.out.println("입력받은 문자열은 "+input);
+		} catch (IOException e) {
+
+		}
+
+
+
+* Object Stream
+Object Stream을 통해 객체도 전달할 수 있다. 하지만 모든 객체가 다 되는 것은 아니다.
+만약 instance를 생성한 클래스가 Serializable interface를 구현할 수 있으면 가능!
