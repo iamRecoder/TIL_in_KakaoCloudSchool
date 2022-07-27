@@ -1,0 +1,116 @@
+# 0726
+
+<어제 내용 복습>
+* Internet 상에서 HTTP를 사용하는 world wide web service.
+
+* client / server 구조
+상대적으로 다수의 클라이언트가 소수의 서버에 접속해서 서비스를 제공받는 형태.
+
+* HTTP Request
+request 방법은 총 6가지
+- GET
+- POST
+- PUT
+- DELETE
+
+* GET 방식
+1. 브라우저 주소 창에 직접 URL을 입력한 후 request를 전달하는 방식
+2. <a href=~> 하이퍼 링크를 클릭했을 때 특정 리소스에 대한 request를 보내게 되는데 이때 GET 방식을 사용.
+3. form 태그의 메서드 속성에 GET라고 명시하는 경우
+
+* POST 방식
+1. form 태그의 메서드 속성에 POST라고 명시하는 경우
+=> 만약에 form 태그를 이용할 경우, 거의 예외없이 어떤 특별한 이유가 있지 않는 한, "post" 방식을 사용한다.
+왜? GET 방식에 비해 POST 방식이 좀 더 좋기 때문에
+GET 방식의 경우, 서버에 추가적인 데이터를 보낼 때 query string을 사용하기 때문에 데이터가 URL에 노출된다.
+반면에, POST는 request header 안에 데이터를 포함해서 전송하기 때문에 길이 제한이 없고 대용량의 데이터를 전송할 수 있다. 또한 직접적으로 데이터가 노출되지 않는다.
+
+* 동적 web (dynamic web)
+web server 측에서 웹 클라이언트가 요청한 흐로그램을 실행한 후 그 결과를 HTTP Response로 돌려줘요!!
+-> CGI (Common Gateway Interface) -> process 단위 -> thread 단위
+    - MS: ASP, PHP
+    - Java: Servlet, JSP
+스레드 단위로 경량화 시켜서 실행시키기 위해 나온 개념.
+
+* Apache Tomcat (HTTP Server + Servlet container)
+web 상에서 동작하는 java program을 만들기 위한 규칙
+Servlet -> HTTPServlet 상속하여 구현. -> eclipse의 도움을 받아 servlet을 생성.
+
+* Servlet 동작
+클래스 하나로부터 인스턴스가 하나 나오는 것을 보장하는 패턴이 싱글톤 패턴이다.
+메서드를 공유해서 호출.
+공용 객체이기 때문에 항상 동기화를 조심해야 한다.
+
+
+
+<오늘 내용>
+
+* Servlet의 출력 문제점(response에 포함될 결과 HTML을 자바 프로그램 내에서 기술해야되는 문제점)을 해결하고자 JSP가 등장.
+기존의 Servlet의 경우, 자바 코드 내에 HTML이 포함된 형태였다.
+JSP는 겉에는 HTML이고 실제 프로그램의 부분 로직은 자바 코드로 이루어져 있다.
+
+
+* JSP의 등장
+JSP는 HTML과 유사하게 생겼다. 확장자는 .jsp를 이용한다.
+JSP의 메카니즘
+servlet container가 jsp 서플릿 파일을 java 파일로 translate 해준다.
+java 파일을 컴파일 하여 클래스 파일이 만들어지고 이로부터 인스턴스를 만들 수 있다.
+
+JSP는 구현도 쉽고 성능도 좋다!
+=> 원초적인 servlet이 사장되고 JSP가 사용되기 시작. 패러다임이 완전히 바뀜.
+
+* JSP
+Q. JSP는 어떻게 만들까?
+=> HTML(출력 결과)을 만들고 JSP 요소(특수한 표기법으로 HTML 안에 삽입된다.)를 사용.
+
+* JSP Element
+1. 주석 <%-- 주석 --%>
+2. directive <%@ 지시어 %>      =>  JSP로 import하기 위해서 사용. 또는 설정 구문을 작성할 때 사용.
+3. declaration <%! 변수/메서드 %>   =>  변수에 대한 선언이나 메서드에 대한 정의가 나온다. 서블릿 클래스의 필드나 메서드로 들어간다.
+4. scriptlet <% 일반 자바 코드 %>   =>  _JSPService() 코드 내로 들어간다.
+5. Expression <%= 식 %>    =>  out.println()의 인자로 들어가서 화면에 그 값이 찍힌다.
+
+JSP는 request 등등의 내장 객체를 가지고 있다.
+
+* JSP의 내장객체 -> JSP 코드 내에서 그냥 사용할 수 있는 객체를 지칭한다.
+1. request 객체 -> HTTPServletRequest class type의 객체
+2. response 객체 -> HTTPServletResponse class type의 객체
+3. out 객체 -> PrintWriter 객체
+4. session 객체 -> HttpSession class 객체이므로 웹 클라이언트 당 한 개씩 할당된다. 클라이언트가 하는 일을 지속적으로 트래킹한다.
+5. application 객체 -> Servlet Context 객체, 모든 Servlet에 의해 공유되는 객체.
+6. page 객체 -> 현재 사용되고 있는 레퍼런스인 this와 동일한 의미.
+
+
+* Layered Architecture
+가장 대표적인 게 MVC. 프로그램을 역할 별로 나눈다.
+- Presentation Layer
+- Business Logic Layer
+- Persistence Layer
+- Database Layer
+
+JSP 안에 뭉쳐 있던 코드를 떼어내기 시작했다. JSP의 역할과 위상이 줄어들게 됨.
+JSP는 출력 용으로만 사용하고 사장되었던 servlet을 다른 용도로 사용해보자!
+=> MVC
+
+사용하는 언어/프레임워크마다 적용되는 패턴이 다르다. ex) 장고의 경우 MVT 패턴을 사용. 그러나 대부분 MVC에서 파생된 패턴들을 사용한다.
+
+* MVC
+MVC는 소프트웨어 시스템을 3가지 타입의 컴포넌트로 분할하는 소프트웨어 패턴이다.
+Model, View, Controller의 앞글자를 따서 MVC.
+
+Model에는 Domain Model과 Business Model이 있다.
+Domain Model은 우리 시스템에서 사용하는 데이터(VO,DO,DTO,Entity)를 지칭한다.
+Business Model은 프로그램 로직(Service)을 지칭한다.
+View는 UI(JSP, HTML)를 담당한다.
+
+Controller은 URL을 보고 프로그램을 어떻게 제어할지 결정. 시스템의 흐름을 제어한다.
+
+* MVC를 포함한 도식
+웹 클라이언트가 웹 서버한테 요청하면 웹서버는 request를 서블릿 컨테이너한테 forwarding.
+즉, request가 오면 servlet이 요청을 받는다. 서블릿은 클라이언트가 보내준 request 객체를 받고 이를 모델화. 컨테이너가 모델한테 데이터를 받고 logic을 처리한다.
+로직 처리를 한 다음에 수행 결과값을 서블릿한테 전달. 결과를 JSP, HTML을 토대로 보여준다.
+
+
+* MVC 프로그램 실습해보기
+- login 기능
+- 도서 검색 기능
