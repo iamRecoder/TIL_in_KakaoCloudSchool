@@ -1,0 +1,71 @@
+# 0729
+
+* 전통적인 Web Appliction -> round-trip 방식
+SPA (Single Page Appliction) : 하나의 페이지 내에서 화면을 동적으로 바꿔준다.
+자바스크립트가 화면을 동적으로 제어하는 역할을 한다.
+
+
+* SPA(Single Page Applicaion)의 영향
+1. Javascript(ES6)가 중요해졌다.
+2. 이전에 비해 사용되는 데이터 양의 감소.
+
+
+* 사용되는(서버가 클라이언트에게 전달하는 데이터) 데이터의 형태
+크게 3가지로 구분된다.
+
+    1. CSV(Comma Seperated Value) : 콤마로 구분된 값
+        ex) 홍길동,20,서울,아이유,30,부산,최길동,50,인천,...
+        장점: 부수적인 데이터(redundant data)가 적다.(comma 밖에 없다) -> 다량의 데이터를 표현하기에 좋다.
+        단점: 유지보수가 어렵고 클라이언트에서 파싱 프로그램을 직접 만들어야 하기 때문에 사용이 어렵다. 데이터를 구조적으로 표현하는 데 한계가 있다.
+
+    2. XML(Extended Markup Language) : user defined tag를 만들 수 있다.
+        ex) <name>홍길동</name><age>20</age>
+        장점: 데이터의 의미를 파악하기 쉽다. 데이터를 구조적으로 표현하기 쉽다. parser를 이용한 프로그램 처리가 쉽기 때문에 유지보수성이 높아진다.
+        단점: 부수적인 데이터가 많기 때문에 데이터 양이 증가한다.
+
+    3. JSON(Javascript Object Notation) :
+        ex) { name : "홍길동", age : 20, address : "서울"... }
+        장점: XML에 비해서는 redundant data가 적다. 실제로 넘어오는 것은 문자열이지만 javascript 객체와 동일한 형태이기 때문에 javascript 객체로 변환하여 처리하기 수월하다.
+
+    4. YAML : 환경 설정할 때 많이 사용되는 데이터의 형태.
+
+
+* 클라이언트의 화면 처리 (browser의 DOM 처리 rendering)
+Javascript로 화면 처리를 한다.
+"Javascript"의 문제점
+    - cross browsing이 안돼요!!
+    - code가 너무 어렵다!
+=> 그래서 문제점을 보완하기 위해 여러가지 기술들이 등장하기 시작! 대표적으로 JQuery
+
+JQuery library : Javascript로 만든 library
+    장점: 쉽다. cross browsing이 가능하다. AJAX(자바스크립트 언어를 가지고 클라이언트와 서버 간의 비동기 통신을 할 수 있는 기술)가 쉬워진다. 화면 제어가 아주 간단하다.
+
+
+* JQuery를 알아보아요!!
+HTML -> DOM tree 생성
+JS -> DOM tree와 CSSOM에 적용된다.
+CSS -> CSSOM (CSS Object Model) 생성
+=> 이것들이 합쳐져서 정보를 닮고 있는 Render tree가 만들어진다. -> 이를 토대로 레이아웃 크기를 계산한다. -> 레이아웃을 토대로 그린다.(Paint)
+이를 "CRP(Critical Rendering Path)"라고 한다.
+
+Javascript는 ES6 + 여러가지 API(DOM API, BOM API, Client side API ...)로 이루어져 있다.
+DOM API를 이용해서 DOM Tree를 제어한다.
+
+
+* 자바스크립트는 DOM API를 이용해서 HTML element(ex. <H1>Hello</H1>)를 Javascript 객체로 reference할 수 있다!
+Javascript 객체로 reference한 것을 Document Object(문서 객체)라고 한다.
+순수 자바스크립트는 Document Object를 이용해서 화면을 핸들링.
+
+그러나 순수 자바스크립트를 이용해서 Document Object로 화면을 핸들링하는 것이 어렵기 때문에 JQuery를 사용한다.
+Document Oject(문서 객체)를 JQuery 객체로 변환. Jqeury 객체에 다양한 메서드가 존재. 메서드를 통해 Document Object를 쉽게 제어한다.
+따라서, JQuery의 다음과 같은 내용을 학습해야 한다.
+    1. 어떤 메서드가 있고 각 메서드가 어떤 일을 하는지 알아야 한다.
+    2. 원하는 HTML element를 바로 JQuery 객체로 referencing할 수 있다.
+
+
+* JQuery 실습
+HTML element는 크게 두가지로 나눌 수 있다.
+    - block-level element: div, h1, li, ...
+                            element가 하나의 line을 차지한다.
+    - inline element: span
+                            element가 안에 들어 있는 데이터의 크기만큼 영역을 차지한다.
