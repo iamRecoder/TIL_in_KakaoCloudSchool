@@ -1,0 +1,65 @@
+# 0803
+
+* 리액트
+-> 사용자의 interaction이 많은 client side application
+    프레임워크보다는 라이브러리의 특징들을 가지고 있다.
+    1. 유지보수
+    2. 재사용성
+    3. 반응속도
+
+
+* 리액트는 component라는 딴위로 구성되어 있다.
+Jquery의 단점은 DOM을 직접 제어해서 repaint가 다시 되어야 한다.
+그러나 리액트는 virtual DOM을 사용하여 여러번 변경되어야 하는 것을 한번만 변경되도록 한다.(rendering을 여러번 하지 않도록!)
+
+
+* webpack module
+우리가 작성한 여러가지 파일들을 하나의 파일로 묶어서 배포하기 쉽도록 해주는 패키지 도구
+
+* babel module
+es6로 작성된 코드가 구형 브라우저에서 돌아갈 수 있도록 변환시켜준다.
+
+* create-react-app
+react app을 손쉽게 만들 수 있게 해준다.
+
+
+* class와 function component
+    - class component
+    => class component가 과거에는 function component에 비해 많은 기능들을 가지고 있었다. 그러나 속도가 느리고 코드가 길다.
+
+    - function component
+    => 코드가 상대적으로 짧다. 그러나 2018년도 경에 리액트 훅이 등장하게 되면서 function component의 단점들이 해결되었다. 따라서 현재는 function component가 주로 사용된다.
+
+
+* Javascript event
+default event를 가지고 있을 수 있다. 대표적으로 <a href=...> 태그, <input type="submit"> 태그가 있다.
+클릭 이벤트가 먼저 발생하고 클릭 이벤트가 끝나면 default event가 호출된다. 이벤트가 연달아서 이어지는 성질이 있다.
+
+
+* class component -> 2018년에 React Hooks를 발명
+state를 다른 방식으로 처리해보자!!!
+
+
+** 컴포넌트로 분리해보기
+데이터, 메서드를 props로 전달한다.
+
+
+* UI (CSS)
+style 속성은 쓰지 않는 것이 좋다. 왜? 유지보수를 위해서, style을 사용하게 되면 css element마다 style을 유지보수해줘야 하기 때문에 유지보수가 어렵다.
+class 속성을 이용해서 class를 정의하고 이를 적용하는 방식으로 사용하는 것이 좋다. => 그러나 초보자에게 쉽지 않다.
+프론트엔드 개발자들을 위해 프론트엔드에서 사용할 수 있는 다양한 CSS Framework을 제공해준다.
+    1. Material UI => 좋지만 custom Element를 사용하기 때문에 element 지식이 필요하고 난이도가 어렵다.
+    2. React Bootstap => 리액트 버전의 Bootstrap. style class가 이미 define되어 있기 때문에 가져다가 사용하면 원하는 UI를 손쉽게 만들 수 있다.
+    3. Tailwind CSS => style class가 이미 define되어 있기 때문에 가져다가 사용하면 원하는 UI를 손쉽게 만들 수 있다.
+
+
+* Drag and Drop
+web page dnd를 구현하기 쉽지 않다.
+HTML5 들어오면서 dnd API가 정식으로 등장 (Javascript API)
+event 처리가 쉬워졌다고 하지만 어렵다...
+"react-beautiful-dnd" 모듈을 이용해서 드래그앤드롭을 상대적으로 쉽게 구현 가능하다.
+그러나 'react-beautiful-dnd"는 react 16, 17 버전에서 사용 가능하다. 우리는 npx를 이용해 가장 최신 버전으로 설치 했기 때문에 가장 최신 버전인 18버전에서 완전하게 돌아간다는 보장이 없다.
+
+<DragDropContext> </DragDropContext> 태그를 이용하여 영역을 지정 가능하다.
+태그 사이에 <Droppable></Droppable> 드랍이 가능한 영역이 존재하며 이를 지정 가능하다.
+<Droppable> 태그 내의 요소들 중 드래그가 가능한 요소들을 Draggable로 설정해줘야 한다.
