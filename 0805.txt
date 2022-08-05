@@ -1,0 +1,159 @@
+# 0805
+
+지금까지 배운 전체 내용 복습.
+
+** ES6
+Javascript = ECMAScript + client API(DOM, BOM, Web Starage) + server API(Node.js)
+
+문제점: 구현이 어렵고 언어의 모호성, corss-browsing -> jQuey -> HTML5(ECMAScript)
+
+* 중요한 버전은 ECMA 2015(ES6)
+따라서 ECMAScript 2016(ES7) 이후 버전을 많이 사용한다.
+
+JQuery를 덜어내려고 노력하고 있다. (속도 문제로 인해서)
+
+만약 프론트엔드를 전문적으로 구현하고 싶다면 ES6의 super set인 Typescript(객체지향적인 Javascript)를 사용하는 것이 좋다.
+또한 npm, webpack, babel, Glup 등의 라이브러리에 대한 지식이 필요하다.
+
+
+
+<ES6 수업 복습>
+1. 변수 (var, let, const)
+- block level scope, function level scope의 차이점
+- hoisting이 무엇인지
+- immutable과 mutable
+- literal이 무엇인지
+- data type으로 무엇무엇이 있었는지, 각 데이터 타입의 특징
+
+
+2. function(함수)
+- 함수 정의하는 방법 (4가지) (함수 선언문, 함수 표현식, 함수 생성자 , arrow function)
+- 함수 hoisting의 특징
+- IIFE, 즉시 실행 함수( 왜 쓰는가?)
+- 중첩 함수
+- callback 함수
+- 고차 함수 (high-order function)
+
+
+3. scope(변수의 사용 범위)
+- function-level scope, block-level scope
+- javascript는 다른 언어들과 다르게 function-level scope이다.
+- lexical scope 란?
+- 전역변수는 되도록 사용하면 안된다. 왜?
+
+
+4. 생성자 함수
+- built-in 생성자 함수
+- 생성자 함수 정의
+- constructor(함수 선언문과 표현식)와 non-constructor(arrow function과 메서드)
+
+
+5. 일급객체(first-class citizen)
+- 함수는 일급 객체, 함수 객체의 기본 property -> __proto__, prototype, ...
+
+
+6. prototype 객체
+- prototype을 왜 쓸까? 상속 때문에
+- prototype chain, prototype 교체, 동적 상속이 가능하다.
+
+
+7. closure
+- closure이란 무엇이고 어떤 효과가 있는지
+
+
+8. class
+- class의 개념, 사용방법
+하지만 자바스크립트는 class 보다는 function을 사용한다.
+
+
+9. Array의 특징, 자주 사용되는 method
+map, filter, splice, push ...
+
+
+
+<Java 수업 복습>
+- JDK, JRE, JVM
+- 절차적 언어 vs 객체지향 안어의 차이점
+- Data type(8개)
+    - Primitive data type -> 어떤 것들이 있고 어떤 특징이 있는지
+    - Reference data type -> class
+- 객체지향 개념
+    - class
+    - instance
+    - constructor
+    - JVM 메모리 구조
+    - static
+- method overloading
+- package, import
+- Access Modifier (public, protected, default, private)
+- Inheritance
+    상속 관계에 있을 때 객체 생성은 조금 다르다.
+    - method overriding
+    - 상속 관계에 있으면 IS-A relationship이 성립된다. -> type casting을 통해 형변환이 가능. polymorphism(다형성)이 이루어진다.
+- final keyword의 의미
+- abstract keyword의 의미
+- interface
+    - interface가 왜 필요한지
+- dynamic binding
+    - 이게 무슨 의미인지
+- 주요 class
+    - Object class : 모든 class의 상위 클래스
+    - String class -> 객체를 리터럴로 만들 수 있다. 그러나 리터럴로 만들 경우, 리터럴 풀에 들어가게 된다.
+- 자료구조
+    - List, Map, Set
+    - generic
+- Exception
+    - try ~ catch 예외처리
+- Thread
+    - process, multi threading, multi processing 등에 대한 내용
+    - 스레드는 어떻게 만드는지
+    - Deamon Thread가 무엇인지
+    - 상태전이도
+    - 상태전이도와 관련된 메서드(sleep(), interrupt(), yield(), join(),
+- 동기화
+    공용 객체를 이용한 동기화
+    - 스레드를 이용할 때 우리가 조심해야 하는 것이 무엇인지
+    - synchronized 블록 또는 메서드 -> critical section 임계구역
+    - wait()과 notify(), notifyAll()을 이용해서 스레드의 상태를 제어할 수 있다.
+- Java IO
+    - 일반 IO -> 쉬운데 효율이 좋지 않다. 기본적인 입출력
+    - NIO -> channel을 이용해 "관" 하나로 입출력 가능. 훨씬 더 효율적이고 속도도 빠르지만 어렵다.
+- Java Network
+    IP, port, protocoal 등등
+    code로 socket, Server Socket을 이용해 client-server 구조로 채팅 구현
+
+<pure JDBC 복습>
+pure JDBC는 쉽긴 하지만 관리도 안되고 효율도 좋지 않다.
+- Driver Loading
+- DBMS 연결
+- statement
+- Query 실행
+- Result set 처리
+- 자원 해제
+DAO를 만들어서 시나리오를 이용해 구조를 변경해 보았다.
+- SOC(Seperation Of Concern) 관심사 분리 -> Refactoring(method extraction 기법)
+                                      -> Inheritance 문제점 (class들이 tightly coupled되는 문제점)
+                                      -> Template Method 패턴과 Factory Method 패턴
+- 상속의 문제점을 해결하기 위해 Interface 등장!!
+    DI(Dependency Injection)을 이용해서 객체 간의 의존 관계를 샹성해서 사용한다.
+
+
+
+<web 복습>
+- 다양한 용어들 (HTTP ...)
+- C/S 구조 (HTTP Request, HTTP Response)
+- Dynamic web을 구현하기 위해서 Servlet을 사용
+- GET, POST 등등
+- HttpSession
+- JSP
+- MVC Pattern
+
+
+
+<Database 복습>
+DBMS의 특징
+- Database 구성요소 -> Table, View, Key, Index, Stored procedure, Trigger ...
+- SQL
+- Transaction (ACID)
+- MySQL -> 데이터 타입, 형변환, 내장 함수
+- JOIN (inner join, outer join)
