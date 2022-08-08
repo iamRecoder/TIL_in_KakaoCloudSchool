@@ -51,8 +51,6 @@ ex) var myAdd = function add(x,y){
 2. 함수 선언문
 코드 문맥을 읽으면서 function literal인지, 함수를 선언하는 것인지 판단하며 함수 선언문일 경우 묵시적으로 함수 이름과 똑같은 식별자를 만들어서 함수 객체를 만들어 냄.
 호이스팅은 둘 다 되지만 함수 표현식은 execution phase에 만들어진다. 함수 선언문은 creation phase에 만들어진다.
-creation phase:
-execution phase:
 ex) function add(x,y){ return x+y; }
 
 3. Function 빌트인 생성자 함수
@@ -78,7 +76,7 @@ IIFE(즉시실행함수): 함수를 선언하면서 동시에 호출. 전역변�
 * scope: 식별자의 유효 범위
 scope chain이 만들어져서 식별자를 인지할 때 체인을 따라가면서 해당 식별자를 찾게 된다.
 스코프는 정적 스코프와 동적 스코프가 있다.
-동적 스코프(dynamic scope): 사용된 위치에 따라 스코프가 잡힌다.
+동적 스코프(dynamic scope): 사용된 위치(호출 위치)에 따라 스코프가 잡힌다.
 정적 스코프(static scope, lexical scope): 스코프가 선언한 위치에 따라 잡힌다. 자바스크립트를 포함한 대부분의 언어들은 lexical scope를 따른다.
 
 * property attribute
