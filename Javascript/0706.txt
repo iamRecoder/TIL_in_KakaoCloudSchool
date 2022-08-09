@@ -132,8 +132,8 @@ ex) //생성자 함수와 일반 함수에서 this를 찍어보기
     const person1 = new Person();
     Person();
 => 브라우저에서의 출력 결과:
-Person {}
-Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+Person{}
+Window{window: Window, self: Window, document: document, name: '', location: Location …}
 
 ex) //생성자 함수와 일반 함수와 메서드에서 this 찍어보기
     function foo(){
@@ -298,7 +298,7 @@ Person {}
             - length property
             - name property
             - [[prototype]] => 상위 프로토타입 객체를 가리킨다.
-            - protype property => 자기 자신의 프로토타입 객체를 가리킨다.
+            - prototype property => 자기 자신의 프로토타입 객체를 가리킨다.
         * 함수 객체가 만들어지는 순간 prototype 객체가 함께 생성된다. 함수 객체의 prototype property가 prototype 객체를 가리킨다.
         또한 인스턴스가 생성되면 인스턴스의 [[prototype]]이 prototype 객체를 가리킨다.
         따라서, 만약 찾는 값이 없으면 체인을 타고 위로 올라가서 값을 찾는다. 이게 바로 prototype chain!!

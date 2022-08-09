@@ -58,7 +58,7 @@ ex) com.kakao.test
 * 동작 과정
 Student.java 파일을 javac 명령을 실행하면 똑같은 이름의 바이트 형태의 Student.class 파일이 결과로 나온다.
 'java Student' 명령어로 Student.class 실행 가능.
-파이을 실행하면 JVM이 내부적으로 실행되면서 1. class Loader가 호출된다. 2. 바이트 코드가 제대로 된 바이트 코드인지 파일을 검사하며 악성 코드가 있나 체크. 3. main()을 호출한다. 만약 main()이 없으면 entry point가 없으므로 실해이 안된다.
+파일을 실행하면 JVM이 내부적으로 실행되면서 1. class Loader가 호출된다. 2. 바이트 코드가 제대로 된 바이트 코드인지 파일을 검사하며 악성 코드가 있나 체크. 3. main()을 호출한다. 만약 main()이 없으면 entry point가 없으므로 실행이 안된다.
 
 * language spec
 javascript와 거의 유사하다.
@@ -163,7 +163,7 @@ public class Student {
 2. protected: 같은 패키지의 경우 사용 가능. 다른 패키지의 겨우 상속 관계에 있으면 사용 가능.
 3. package(default): 키워드를 안쓰는 경우. 같은 패키지 내에서만 사용 가능.
 4. private: 같은 class 안에서만 사용 가능. 같은 클래스 외부에서는 직접적인 access가 불가하기 때문에 데이터를 보호할 수 있다. (정보 은닉, information hiding)
-=> 결론적으로 클래스 안의 field는 특별한 이유가 없는 한 데이터 보호를 위해해기본으로 private으로 설정한다. 메서드는 기능을 하기 때문에 외부에서 사용할 수 있도록 기본으로 public으로 설정한다.
+=> 결론적으로 클래스 안의 field는 특별한 이유가 없는 한 데이터 보호를 위해 기본으로 private으로 설정한다. 메서드는 기능을 하기 때문에 외부에서 사용할 수 있도록 기본으로 public으로 설정한다.
 
 * 기본적인 class의 개념
 1. private field

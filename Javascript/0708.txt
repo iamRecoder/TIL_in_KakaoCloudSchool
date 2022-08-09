@@ -34,7 +34,7 @@ programming 패러다임 -> 프로그래밍 방법론
 
 Javascript는 프로토타입 기반의 객체 지향 언어, 객체 기반 언어(완벽한 객체 지향을 반영하지 못하는 언어라는 평을 받기도 한다.)
     - class가 필요없다. 프로토타입으로 상속 구현 가능.
-        하지만 사람드르이 요구에 따라 ES6에서 class 개념을 도입했다.
+        하지만 사람들이 요구에 따라 ES6에서 class 개념을 도입했다.
     ex) class 사용 예시
     //class define
     class Person{
@@ -54,7 +54,7 @@ Javascript는 프로토타입 기반의 객체 지향 언어, 객체 기반 언�
     - 클래스 역시 함수이기 때문에 hoisting이 발생한다. (그러나 마치 hoisting이 일어나지 않는 것처럼 보임. let&const의 hoisting과 동일하게 동작하며 마찬가지로 temporal deadzone이 발생함.)
     - class 내부 코드는 strict mode가 default로 동작한다.
     - class 안에는 3가지(constructor, prototype 메서드(prototype 객체에 설정이되어서 인스턴스한테 상속을 주는 메서드), static 메서드)가 나온다.
-        => property의 property atribute의 값은 모두 false이다.
+        => property의 property attribute의 값은 모두 false이다.
     - class는 0개 이상의 메서드(ES6)로 구성되어 있다. 클래스 안에는 ES6 축약표현의 메서드만 올 수 있다.
         1. constructor method(생성자): 인스턴스를 만들고 인스턴스를 초기화해준다. 따라서 constructor가 반드시 호출되어야 한다. 만약 constructor를 명시하지 않으면 자바스크립트 엔진이 default constructor를 자동으로 만들어준다.
                                      다른 언어와 다르게 한개만 존재할 수 없다.(자바스크립트는 오버로딩의 개념이 없기 때문이다.)

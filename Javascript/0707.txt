@@ -2,10 +2,10 @@
 
 생성자 함수만 가지고 있는 prototype property, 이는 prototype 객체를 가리키고 있다. prototype 객체에는 constructor property가 추가된다. constructor property는 생성자 함수를 가리킨다.
 모든 객체는 내부 슬롯으로 [[Prototype]]을 가지고 있다.
-생성자 함수로 인스턴스를 만들면 인스턴스도 역시 객체이므로 애부 슬롯 [[prototype]]을 기자고 있자. [[prototype]]은 상위 prototype 객체를 가리킨다.
+생성자 함수로 인스턴스를 만들면 인스턴스도 역시 객체이므로 내부 슬롯 [[prototype]]을 기자고 있다. [[prototype]]은 상위 prototype 객체를 가리킨다.
 __proto__ 접근자 property는 상속되었기 때문에 사용 가능!
 __proto__ 접근자 property는 인스턴스가 Object.prototype을 상속받고 있기 때문에 Object에는 Object.porototype.__proto__ 가 있음.
-prototype 객체의 [[[prototype]]은 Object.prototype을 가리키고 있음.
+prototype 객체의 [[prototype]]은 Object.prototype을 가리키고 있음.
 Object.constructor는 Object 생성자 함수를 가리킨다.
 prototype chain이 인스턴스 기준으로 하나만 생기지 않는다. 2개의 prototype chain이 생긴다.
 
@@ -23,9 +23,9 @@ Q. 그럼 이런 경우를 위해 어떻게 하면 좋은가요?
 
 * prototype property는 constructor(함수 선언문, 함수 표현식, class)만 가질 수 있는 property
 
-                        (소유)                   (의미)
-__proto__ property => 모든 객체가 들고 있음.    prototype 객체의 참조
-prototype property => constructor.         prototype 객체의 참조
+                        (소유)                                            (의미)
+__proto__ property => 모든 객체가 들고 있음.                                prototype 객체의 참조
+prototype property => constructor(함수 선언문, 함수 표현식, class).          prototype 객체의 참조
 
 * 객체 literal로 생성된 Object의 상위 prototype 객체
 literal은 new를 통해 인스턴스가 만들어진 게 아니고 내부적으로 인스턴스와 똑같은 형태의 객체를 만들어낸다.
@@ -132,7 +132,7 @@ First class citizen/object(일급 객체)에 대한 이해가 선행이되어야
   4. 함수의 리턴값으로 사용이 가능하다.
 자바스크립트에서는 함수가 객체로 취급되고 일급 객체의 특징을 모두 가지므로 함수가 일급객체로 동작한다.(일급 함수, First Class Function)
 
-클로저를 간단하게 정의하자면, MSN에서 클로저는 '함수와 그 함수가 선언된 lexical environment의 조합'
+클로저를 간단하게 정의하자면, 클로저는 '함수와 그 함수가 선언된 lexical environment의 조합'
 lexical environment란 무엇인가?
     execution context(실행 컨텍스트) 개념과 연결된다.
 

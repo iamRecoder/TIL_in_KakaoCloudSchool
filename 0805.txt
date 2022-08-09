@@ -73,7 +73,7 @@ map, filter, splice, push ...
 
 <Java 수업 복습>
 - JDK, JRE, JVM
-- 절차적 언어 vs 객체지향 안어의 차이점
+- 절차적 언어 vs 객체지향 언어의 차이점
 - Data type(8개)
     - Primitive data type -> 어떤 것들이 있고 어떤 특징이 있는지
     - Reference data type -> class
